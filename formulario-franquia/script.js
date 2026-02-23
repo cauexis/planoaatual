@@ -162,6 +162,12 @@ function validateStep(step) {
       isValid = false;
     }
 
+    const renda = document.getElementById('renda');
+    if (!renda.value) {
+      showError('renda', 'Por favor, selecione sua faixa de renda.');
+      isValid = false;
+    }
+
     if (!termos.checked) {
       showError('termos', 'Você precisa concordar com os termos.');
       isValid = false;
@@ -259,6 +265,7 @@ function handleSubmit(e) {
     bairro: document.getElementById('bairro').value.trim(),
     condominio: document.getElementById('condominio').value.trim(),
     investimento: document.getElementById('investimento').value,
+    renda: document.getElementById('renda').value,
     experiencia: document.querySelector('input[name="experiencia"]:checked')?.value || '',
     mensagem: document.getElementById('mensagem').value.trim()
   };
