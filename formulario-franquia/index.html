@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mercatu — Seja um Franqueado</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- =====================================================
+       META PIXEL (Facebook Pixel)
+       Substitua 'SEU_PIXEL_ID_AQUI' pelo seu ID do Pixel Meta
+       ===================================================== -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'SEU_PIXEL_ID_AQUI');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=SEU_PIXEL_ID_AQUI&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- FIM DO META PIXEL -->
+
+</head>
+<body>
+
+  <!-- Partículas de fundo -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Container principal -->
+  <div class="main-container">
+
+    <!-- Header com logo -->
+    <header class="form-header">
+      <div class="logo-wrapper">
+        <img src="assets/logo-mercatu.png" alt="Mercatu — Seu minimercado" class="logo">
+      </div>
+      <h1 class="form-title">Seja um <span class="highlight">Franqueado</span></h1>
+      <p class="form-subtitle">Preencha o formulário abaixo e nossa equipe entrará em contato com você.</p>
+    </header>
+
+    <!-- Indicador de progresso -->
+    <div class="progress-bar">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="steps">
+        <div class="step active" data-step="1">
+          <div class="step-circle">1</div>
+          <span class="step-label">Dados Pessoais</span>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-circle">2</div>
+          <span class="step-label">Localização</span>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-circle">3</div>
+          <span class="step-label">Investimento</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulário -->
+    <form id="mercatuForm" novalidate>
+
+      <!-- Etapa 1: Dados Pessoais -->
+      <div class="form-step active" id="step1">
+        <div class="step-header">
+          <div class="step-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h2>Dados Pessoais</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="nome">Nome completo <span class="required">*</span></label>
+          <div class="input-wrapper">
+            <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+          </div>
+          <span class="error-msg" id="nomeError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mail <span class="required">*</span></label>
+          <div class="input-wrapper">
+            <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+          </div>
+          <span class="error-msg" id="emailError"></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="telefone">Telefone / WhatsApp <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+            </div>
+            <span class="error-msg" id="telefoneError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="cpf">CPF</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+              <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00">
+            </div>
+            <span class="error-msg" id="cpfError"></span>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <div></div>
+          <button type="button" class="btn btn-next" onclick="nextStep(1)">
+            Próximo
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Etapa 2: Localização -->
+      <div class="form-step" id="step2">
+        <div class="step-header">
+          <div class="step-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h2>Localização</h2>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="estado">Estado <span class="required">*</span></label>
+            <div class="input-wrapper select-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <select id="estado" name="estado" required>
+                <option value="">Selecione seu estado</option>
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="ES">Espírito Santo</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão</option>
+                <option value="MT">Mato Grosso</option>
+                <option value="MS">Mato Grosso do Sul</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="PA">Pará</option>
+                <option value="PB">Paraíba</option>
+                <option value="PR">Paraná</option>
+                <option value="PE">Pernambuco</option>
+                <option value="PI">Piauí</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="RN">Rio Grande do Norte</option>
+                <option value="RS">Rio Grande do Sul</option>
+                <option value="RO">Rondônia</option>
+                <option value="RR">Roraima</option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SP">São Paulo</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+              </select>
+            </div>
+            <span class="error-msg" id="estadoError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="cidade">Cidade <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <input type="text" id="cidade" name="cidade" placeholder="Digite sua cidade" required>
+            </div>
+            <span class="error-msg" id="cidadeError"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bairro">Bairro</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <input type="text" id="bairro" name="bairro" placeholder="Digite seu bairro">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="condominio">Nome do Condomínio / Empresa</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            <input type="text" id="condominio" name="condominio" placeholder="Nome do condomínio ou empresa">
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button type="button" class="btn btn-prev" onclick="prevStep(2)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+            Voltar
+          </button>
+          <button type="button" class="btn btn-next" onclick="nextStep(2)">
+            Próximo
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Etapa 3: Investimento -->
+      <div class="form-step" id="step3">
+        <div class="step-header">
+          <div class="step-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h2>Investimento</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="investimento">Faixa de investimento disponível <span class="required">*</span></label>
+          <div class="input-wrapper select-wrapper">
+            <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <select id="investimento" name="investimento" required>
+              <option value="">Selecione a faixa</option>
+              <option value="ate-50k">Até R$ 50.000</option>
+              <option value="50k-100k">R$ 50.000 — R$ 100.000</option>
+              <option value="100k-200k">R$ 100.000 — R$ 200.000</option>
+              <option value="200k-500k">R$ 200.000 — R$ 500.000</option>
+              <option value="acima-500k">Acima de R$ 500.000</option>
+            </select>
+          </div>
+          <span class="error-msg" id="investimentoError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="experiencia">Possui experiência com franquias?</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="experiencia" value="sim">
+              <span class="radio-custom"></span>
+              Sim
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="experiencia" value="nao" checked>
+              <span class="radio-custom"></span>
+              Não
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="mensagem">Mensagem (opcional)</label>
+          <div class="input-wrapper textarea-wrapper">
+            <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conte-nos mais sobre seu interesse na franquia Mercatu..."></textarea>
+          </div>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="termos" name="termos" required>
+            <span class="checkbox-custom"></span>
+            Concordo com os <a href="#" class="link">termos de uso</a> e <a href="#" class="link">política de privacidade</a> <span class="required">*</span>
+          </label>
+          <span class="error-msg" id="termosError"></span>
+        </div>
+
+        <div class="form-nav">
+          <button type="button" class="btn btn-prev" onclick="prevStep(3)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+            Voltar
+          </button>
+          <button type="submit" class="btn btn-submit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+            Enviar Cadastro
+          </button>
+        </div>
+      </div>
+
+      <!-- Tela de Sucesso -->
+      <div class="form-step success-screen" id="successScreen">
+        <div class="success-animation">
+          <div class="success-checkmark">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h2>Cadastro Enviado!</h2>
+          <p>Obrigado pelo seu interesse na franquia <strong>Mercatu</strong>. Nossa equipe entrará em contato em breve.</p>
+          <button type="button" class="btn btn-next" onclick="resetForm()">Enviar novo cadastro</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- Footer -->
+    <footer class="form-footer">
+      <p>&copy; 2026 Mercatu — Todos os direitos reservados.</p>
+      <div class="footer-links">
+        <a href="https://www.minimercatu.com" target="_blank">minimercatu.com</a>
+        <span class="divider">|</span>
+        <a href="tel:1140028922">(11) 4002-8922</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
