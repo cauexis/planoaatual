@@ -252,6 +252,7 @@ function handleSubmit(e) {
 
   const submitBtn = document.querySelector('.btn-submit');
   submitBtn.classList.add('loading');
+  submitBtn.disabled = true;
   submitBtn.innerHTML = '<span class="btn-text">Enviando...</span><div class="spinner"></div>';
 
   // Coletar dados do formulário
@@ -303,48 +304,72 @@ function handleSubmit(e) {
   const estadoSelect = document.getElementById('estado');
   const estadoNome = estadoSelect.options[estadoSelect.selectedIndex].text;
 
-  // Montar mensagem formatada para WhatsApp
-  let mensagemWhatsApp = `🛒 *NOVO LEAD — FRANQUIA MERCATU*\n\n`;
-  mensagemWhatsApp += `👤 *Dados Pessoais*\n`;
-  mensagemWhatsApp += `• Nome: ${formData.nome}\n`;
-  mensagemWhatsApp += `• E-mail: ${formData.email}\n`;
-  mensagemWhatsApp += `• Telefone: ${formData.telefone}\n`;
-  if (formData.cpf) mensagemWhatsApp += `• CPF: ${formData.cpf}\n`;
-  mensagemWhatsApp += `\n📍 *Localização*\n`;
-  mensagemWhatsApp += `• Estado: ${estadoNome}\n`;
-  mensagemWhatsApp += `• Cidade: ${formData.cidade}\n`;
-  if (formData.bairro) mensagemWhatsApp += `• Bairro: ${formData.bairro}\n`;
-  if (formData.condominio) mensagemWhatsApp += `• Condomínio/Empresa: ${formData.condominio}\n`;
-  mensagemWhatsApp += `\n💰 *Investimento*\n`;
-  mensagemWhatsApp += `• Faixa de investimento: ${investimentoLabels[formData.investimento] || formData.investimento}\n`;
-  mensagemWhatsApp += `• Renda mensal: ${rendaLabels[formData.renda] || formData.renda}\n`;
-  mensagemWhatsApp += `• Experiência com franquias: ${formData.experiencia === 'sim' ? 'Sim' : 'Não'}\n`;
-  if (formData.mensagem) mensagemWhatsApp += `\n💬 *Mensagem:*\n${formData.mensagem}\n`;
+  // Montar mensagem formatada para o e-mail
+  let mensagemEmail = `NOVO LEAD — FRANQUIA MERCATU\n\n`;
+  mensagemEmail += `DADOS PESSOAIS\n`;
+  mensagemEmail += `Nome: ${formData.nome}\n`;
+  mensagemEmail += `E-mail: ${formData.email}\n`;
+  mensagemEmail += `Telefone: ${formData.telefone}\n`;
+  if (formData.cpf) mensagemEmail += `CPF: ${formData.cpf}\n`;
+  mensagemEmail += `\nLOCALIZAÇÃO\n`;
+  mensagemEmail += `Estado: ${estadoNome}\n`;
+  mensagemEmail += `Cidade: ${formData.cidade}\n`;
+  if (formData.bairro) mensagemEmail += `Bairro: ${formData.bairro}\n`;
+  if (formData.condominio) mensagemEmail += `Condomínio/Empresa: ${formData.condominio}\n`;
+  mensagemEmail += `\nINVESTIMENTO\n`;
+  mensagemEmail += `Faixa de investimento: ${investimentoLabels[formData.investimento] || formData.investimento}\n`;
+  mensagemEmail += `Renda mensal: ${rendaLabels[formData.renda] || formData.renda}\n`;
+  mensagemEmail += `Experiência com franquias: ${formData.experiencia === 'sim' ? 'Sim' : 'Não'}\n`;
+  if (formData.mensagem) mensagemEmail += `\nMENSAGEM:\n${formData.mensagem}\n`;
 
-  // Número do WhatsApp (Brasil +55)
-  const whatsappNumber = '5592985467501';
-  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensagemWhatsApp)}`;
+  // Enviar via EmailJS
+  const templateParams = {
+    name: formData.nome,
+    email: formData.email,
+    title: `Novo Lead: ${formData.nome} — ${estadoNome}/${formData.cidade}`,
+    time: new Date().toLocaleString('pt-BR'),
+    message: mensagemEmail,
+    nome: formData.nome,
+    telefone: formData.telefone,
+    cpf: formData.cpf || 'Não informado',
+    estado: estadoNome,
+    cidade: formData.cidade,
+    bairro: formData.bairro || 'Não informado',
+    condominio: formData.condominio || 'Não informado',
+    investimento: investimentoLabels[formData.investimento] || formData.investimento,
+    renda: rendaLabels[formData.renda] || formData.renda,
+    experiencia: formData.experiencia === 'sim' ? 'Sim' : 'Não',
+    mensagem: formData.mensagem || 'Nenhuma mensagem adicional'
+  };
 
-  // Enviar para WhatsApp após breve delay visual
-  setTimeout(() => {
-    submitBtn.classList.remove('loading');
+  emailjs.send('service_ky0ksbm', 'template_iocim9l', templateParams)
+    .then(function(response) {
+      console.log('E-mail enviado com sucesso!', response.status, response.text);
 
-    // Esconder etapa 3 e mostrar sucesso
-    document.getElementById('step3').classList.remove('active');
-    const successScreen = document.getElementById('successScreen');
-    successScreen.classList.add('active');
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
 
-    // Atualizar progresso para 100%
-    document.getElementById('progressFill').style.width = '100%';
-    document.querySelectorAll('.step').forEach(s => {
-      s.classList.remove('active');
-      s.classList.add('completed');
+      // Esconder etapa 3 e mostrar sucesso
+      document.getElementById('step3').classList.remove('active');
+      const successScreen = document.getElementById('successScreen');
+      successScreen.classList.add('active');
+
+      // Atualizar progresso para 100%
+      document.getElementById('progressFill').style.width = '100%';
+      document.querySelectorAll('.step').forEach(s => {
+        s.classList.remove('active');
+        s.classList.add('completed');
+      });
+
+    }, function(error) {
+      console.error('Erro ao enviar e-mail:', error);
+
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg> Enviar Cadastro';
+
+      alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
     });
-
-    // Abrir WhatsApp em nova aba
-    window.open(whatsappURL, '_blank');
-
-  }, 2000);
 }
 
 // =====================================================
