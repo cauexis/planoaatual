@@ -282,7 +282,50 @@ function handleSubmit(e) {
     });
   }
 
-  // Simular envio (substituir pela integração real)
+  // Mapear valores legíveis
+  const investimentoLabels = {
+    'ate-50k': 'Até R$ 50.000',
+    '50k-100k': 'R$ 50.000 — R$ 100.000',
+    '100k-200k': 'R$ 100.000 — R$ 200.000',
+    '200k-500k': 'R$ 200.000 — R$ 500.000',
+    'acima-500k': 'Acima de R$ 500.000'
+  };
+
+  const rendaLabels = {
+    'ate-3k': 'Até R$ 3.000',
+    '3k-5k': 'R$ 3.000 — R$ 5.000',
+    '5k-10k': 'R$ 5.000 — R$ 10.000',
+    '10k-20k': 'R$ 10.000 — R$ 20.000',
+    '20k-50k': 'R$ 20.000 — R$ 50.000',
+    'acima-50k': 'Acima de R$ 50.000'
+  };
+
+  const estadoSelect = document.getElementById('estado');
+  const estadoNome = estadoSelect.options[estadoSelect.selectedIndex].text;
+
+  // Montar mensagem formatada para WhatsApp
+  let mensagemWhatsApp = `🛒 *NOVO LEAD — FRANQUIA MERCATU*\n\n`;
+  mensagemWhatsApp += `👤 *Dados Pessoais*\n`;
+  mensagemWhatsApp += `• Nome: ${formData.nome}\n`;
+  mensagemWhatsApp += `• E-mail: ${formData.email}\n`;
+  mensagemWhatsApp += `• Telefone: ${formData.telefone}\n`;
+  if (formData.cpf) mensagemWhatsApp += `• CPF: ${formData.cpf}\n`;
+  mensagemWhatsApp += `\n📍 *Localização*\n`;
+  mensagemWhatsApp += `• Estado: ${estadoNome}\n`;
+  mensagemWhatsApp += `• Cidade: ${formData.cidade}\n`;
+  if (formData.bairro) mensagemWhatsApp += `• Bairro: ${formData.bairro}\n`;
+  if (formData.condominio) mensagemWhatsApp += `• Condomínio/Empresa: ${formData.condominio}\n`;
+  mensagemWhatsApp += `\n💰 *Investimento*\n`;
+  mensagemWhatsApp += `• Faixa de investimento: ${investimentoLabels[formData.investimento] || formData.investimento}\n`;
+  mensagemWhatsApp += `• Renda mensal: ${rendaLabels[formData.renda] || formData.renda}\n`;
+  mensagemWhatsApp += `• Experiência com franquias: ${formData.experiencia === 'sim' ? 'Sim' : 'Não'}\n`;
+  if (formData.mensagem) mensagemWhatsApp += `\n💬 *Mensagem:*\n${formData.mensagem}\n`;
+
+  // Número do WhatsApp (Brasil +55)
+  const whatsappNumber = '5592985467501';
+  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensagemWhatsApp)}`;
+
+  // Enviar para WhatsApp após breve delay visual
   setTimeout(() => {
     submitBtn.classList.remove('loading');
 
@@ -297,6 +340,9 @@ function handleSubmit(e) {
       s.classList.remove('active');
       s.classList.add('completed');
     });
+
+    // Abrir WhatsApp em nova aba
+    window.open(whatsappURL, '_blank');
 
   }, 2000);
 }
